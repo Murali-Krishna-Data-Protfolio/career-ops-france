@@ -1,0 +1,77 @@
+name: Daily job scan (France · English · data roles)
+
+# 08:00 Europe/Paris every day. GitHub cron is UTC and Paris switches between
+# UTC+1 and UTC+2, so both crons are scheduled and the "gate" step keeps only
+# the one that matches today's Paris offset (robust to GitHub's start delays).
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 08:00 Paris in summer (CEST, UTC+2)
+    - cron: '0 7 * * *'   # 08:00 Paris in winter (CET, UTC+1)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Gate — run only the 08:00 Paris schedule
+        id: gate
+        run: |
+          OFFSET=$(TZ=Europe/Paris date +%z)
+          if [ "$OFFSET" = "+0200" ]; then WANT='0 6 * * *'; else WANT='0 7 * * *'; fi
+          if [ "${{ github.event_name }}" != "schedule" ] || [ "${{ github.event.schedule }}" = "$WANT" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping: this cron is not 08:00 Paris today (offset $OFFSET)."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        if: steps.gate.outputs.run == 'true'
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm ci --no-audit --no-fund
+
+      - name: Scan (Allianz France first) · score vs CV · alert
+        if: steps.gate.outputs.run == 'true'
+        env:
+          TZ: Europe/Paris
+          ALERT_DESKTOP: '0'
+          ALERT_GMAIL_USER: ${{ secrets.ALERT_GMAIL_USER }}
+          ALERT_GMAIL_APP_PASSWORD: ${{ secrets.ALERT_GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_WHATSAPP_PHONE: ${{ secrets.ALERT_WHATSAPP_PHONE }}
+          ALERT_CALLMEBOT_APIKEY: ${{ secrets.ALERT_CALLMEBOT_APIKEY }}
+        run: node daily-run.mjs
+
+      - name: Save results to the repo
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name  "career-ops bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pipeline.md data/matches.jsonl data/scan-history.tsv data/scan-runs.tsv data/portal-health.tsv data/watch-pages.json MATCHES.md 2>/dev/null || true
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git commit -m "Daily scan $(TZ=Europe/Paris date +%F): results"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1

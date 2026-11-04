@@ -1,0 +1,360 @@
+# career-ops portal config — FRANCE ONLY (Paris / Île-de-France first)
+# Candidate: Analytics Engineer / Data Engineer / BI, 3 yrs, English-language roles.
+# Validate after editing:  node validate-portals.mjs
+# Check boards still live: node verify-portals.mjs
+# Run the scan:            node scan.mjs        (preview: node scan.mjs --dry-run)
+
+# Prefer the English version when an ATS publishes a posting in several languages.
+preferred_languages: [en]
+
+# STRICT English-only gate (lib/english-gate.mjs, called from scan.mjs).
+# Reads each new posting's full JD and drops it when the JD is in French,
+# when it requires French (fluent / native / professional / C1 / bilingual),
+# or when its language cannot be verified. "French is a plus" is kept.
+english_only:
+  enabled: true
+  unknown: drop          # drop | keep — postings whose JD could not be read
+  max_french_share: 0.3  # share of French stopwords above which a JD counts as French
+
+# Only postings from the last 30 days (providers without a date always pass).
+max_posting_age_days: 30
+
+# 3 years of experience: label (don't drop) postings asking for 5+ years.
+experience_filter:
+  enabled: true
+  stretch_years: 1
+  action: label
+
+# -- Title filter ------------------------------------------------------------
+# Case-insensitive, accent-insensitive substring match on the job title.
+title_filter:
+  positive:
+    # Analytics engineering
+    - "Analytics Engineer"
+    - "Analytics Engineering"
+    - "Analytics Developer"
+    # Data engineering
+    - "Data Engineer"
+    - "Data Engineering"
+    - "Data Platform"
+    - "DataOps"
+    - "ETL Developer"
+    - "Data Warehouse"
+    - "Data Modeler"
+    - "Microsoft Fabric"
+    - "Databricks"
+    # BI
+    - "Business Intelligence"
+    - "Power BI"
+    - "BI Engineer"
+    - "BI Developer"
+    - "BI Analyst"
+    - "BI Consultant"
+    - "Reporting Analyst"
+    - "Reporting Engineer"
+    # Data analysis
+    - "Data Analyst"
+    - "Data Analytics"
+    - "Analytics Analyst"
+    - "Business Analyst"
+    - "Data Consultant"
+    - "Analytics Consultant"
+  negative:
+    # Internships / apprenticeships
+    - "Junior"
+    - "word:Intern"
+    - "word:Interns"
+    - "Internship"
+    - "Alternance"
+    - "Alternant"
+    - "Apprenti"
+    - "Stagiaire"
+    - "word:Stage"
+    - "Graduate Program"
+    # Too senior for 3 years
+    - "Principal"
+    - "word:Staff"
+    - "Head of"
+    - "Director"
+    - "Directeur"
+    - "word:VP"
+    - "word:Lead"
+    - "word:Manager"
+    - "Expert"
+    # French seniority / trainer wording
+    - "Confirmé"
+    - "Expérimenté"
+    - "Formateur"
+    - "Formatrice"
+    - "H-F"
+    # French-titled postings (usually French-speaking roles; English-only search)
+    - "Ingénieur"
+    - "Ingenieur"
+    - "Analyste"
+    - "Développeur"
+    - "Chargé"
+    - "Chargée"
+    - "Chef de projet"
+    - "Responsable"
+    - "Consultant(e)"
+    - "H/F"
+    - "F/H"
+    # Off-target stacks
+    - "SAP "
+    - "Mainframe"
+    - "COBOL"
+
+# -- Location filter: France only ---------------------------------------------
+location_filter:
+  always_allow:
+    - "France"
+  allow:
+    - "France"
+    - "Paris"
+    - "Île-de-France"
+    - "Ile-de-France"
+    - "Saint-Germain-en-Laye"
+    - "La Défense"
+    - "Puteaux"
+    - "Courbevoie"
+    - "Nanterre"
+    - "Boulogne-Billancourt"
+    - "Issy-les-Moulineaux"
+    - "Levallois-Perret"
+    - "Neuilly-sur-Seine"
+    - "Saint-Denis"
+    - "Saint-Ouen"
+    - "Montrouge"
+    - "Rueil-Malmaison"
+    - "Versailles"
+    - "Massy"
+    - "Saclay"
+    - "Lyon"
+    - "Lille"
+    - "Toulouse"
+    - "Nantes"
+    - "Bordeaux"
+    - "Marseille"
+    - "Montpellier"
+    - "Rennes"
+    - "Grenoble"
+    - "Strasbourg"
+    - "Nice"
+    - "Sophia Antipolis"
+
+# -- Description filter (only providers that return JD text: Ashby, Lever) ---
+# Drops postings that require fluent/native French or are written in French.
+content_filter:
+  negative:
+    - "fluent in french"
+    - "fluency in french"
+    - "french fluency"
+    - "fluent french"
+    - "native french"
+    - "french native"
+    - "french is mandatory"
+    - "french is required"
+    - "french is a must"
+    - "french (fluent"
+    - "french (native"
+    - "français courant"
+    - "francais courant"
+    - "maîtrise du français"
+    - "maitrise du francais"
+    - "français natif"
+    - "nous recherchons"
+    - "vos missions"
+    - "votre profil"
+    - "rejoignez"
+
+# -- Web-search discovery (used by the /career-ops scan agent mode) ----------
+search_queries:
+  - name: WTTJ — Paris data roles (English)
+    query: 'site:welcometothejungle.com/en "Paris" "Analytics Engineer" OR "Data Engineer" OR "BI Engineer" OR "Power BI"'
+    enabled: true
+  - name: Greenhouse/Lever/Ashby — Paris data roles
+    query: 'site:job-boards.greenhouse.io OR site:jobs.lever.co OR site:jobs.ashbyhq.com Paris "Analytics Engineer" OR "Data Engineer" OR "BI Developer"'
+    enabled: true
+  - name: LinkedIn — Paris Analytics Engineer (English)
+    query: 'site:linkedin.com/jobs/view Paris "Analytics Engineer" OR "Power BI" OR "Microsoft Fabric" English'
+    enabled: true
+
+# -- Tracked companies (ATS boards verified live 2026-11-04) -----------------
+tracked_companies:
+
+  # -- Priority sources (added from Job Inbox / scanned first) --
+  # `priority: true` = scanned FIRST every morning (daily-run.mjs) and any CV
+  # match triggers an urgent alert (popup + Gmail + WhatsApp).
+  - name: "Allianz France"
+    careers_url: https://careers.allianz.com
+    provider: phenom
+    phenom:
+      urlPrefix: global/en
+      selectedFields: { country: ["France"] }
+    notes: "careers.allianz.com — France positions only (Allianz France, Allianz Trade, Allianz Technology, AGI, Allianz Partners). Most are French-language; English ones alert."
+    priority: true
+    enabled: true
+
+  # Data / AI product companies
+  - name: Datadog
+    careers_url: https://job-boards.greenhouse.io/datadog
+    api: https://boards-api.greenhouse.io/v1/boards/datadog/jobs
+    notes: "Paris R&D hub."
+    enabled: true
+  - name: Dataiku
+    careers_url: https://job-boards.greenhouse.io/dataiku
+    api: https://boards-api.greenhouse.io/v1/boards/dataiku/jobs
+    notes: "Paris. Data science / analytics platform."
+    enabled: true
+  - name: Contentsquare
+    careers_url: https://jobs.lever.co/contentsquare
+    notes: "Paris. Digital analytics."
+    enabled: true
+  - name: Algolia
+    careers_url: https://job-boards.greenhouse.io/algolia
+    api: https://boards-api.greenhouse.io/v1/boards/algolia/jobs
+    notes: "Paris. Search API."
+    enabled: true
+  - name: Mirakl
+    careers_url: https://job-boards.greenhouse.io/mirakl
+    api: https://boards-api.greenhouse.io/v1/boards/mirakl/jobs
+    notes: "Paris. Marketplace SaaS."
+    enabled: true
+  - name: Ivalua
+    careers_url: https://job-boards.greenhouse.io/ivalua
+    api: https://boards-api.greenhouse.io/v1/boards/ivalua/jobs
+    notes: "Orsay / Paris. Procurement SaaS."
+    enabled: true
+  - name: Shift Technology
+    careers_url: https://job-boards.greenhouse.io/shifttechnology
+    api: https://boards-api.greenhouse.io/v1/boards/shifttechnology/jobs
+    notes: "Paris. Insurance AI."
+    enabled: true
+  - name: Mistral AI
+    careers_url: https://jobs.ashbyhq.com/mistral.ai
+    notes: "Paris. AI lab."
+    enabled: true
+  - name: Photoroom
+    careers_url: https://jobs.ashbyhq.com/photoroom
+    notes: "Paris. AI photo editor."
+    enabled: true
+  - name: Owkin
+    careers_url: https://jobs.ashbyhq.com/owkin
+    notes: "Paris. AI for biotech."
+    enabled: true
+  - name: Nabla
+    careers_url: https://jobs.ashbyhq.com/nabla
+    notes: "Paris. Healthcare AI."
+    enabled: true
+
+  # Fintech / FP&A (fits FP&A + consolidation background)
+  - name: Pigment
+    careers_url: https://jobs.lever.co/pigment
+    notes: "Paris. FP&A planning platform."
+    enabled: true
+  - name: Agicap
+    careers_url: https://jobs.lever.co/agicap
+    notes: "Lyon / Paris. Cash-management SaaS."
+    enabled: true
+  - name: Pennylane
+    careers_url: https://jobs.ashbyhq.com/pennylane
+    notes: "Paris. Accounting / finance SaaS."
+    enabled: true
+  - name: Qonto
+    careers_url: https://jobs.ashbyhq.com/qonto
+    notes: "Paris. SMB neobank."
+    enabled: true
+  - name: Swan
+    careers_url: https://jobs.ashbyhq.com/swan
+    notes: "Paris. Embedded banking."
+    enabled: true
+  - name: Younited
+    careers_url: https://jobs.lever.co/younited
+    notes: "Paris. Consumer credit."
+    enabled: true
+  - name: Ledger
+    careers_url: https://jobs.ashbyhq.com/ledger
+    notes: "Paris / Vierzon."
+    enabled: true
+  - name: Swile
+    careers_url: https://jobs.lever.co/swile
+    notes: "Paris / Montpellier. Employee benefits."
+    enabled: true
+
+  # Health / HR / marketplaces / consumer
+  - name: Doctolib
+    careers_url: https://jobs.ashbyhq.com/doctolib
+    notes: "Paris. Health-tech."
+    enabled: true
+  - name: Alan
+    careers_url: https://jobs.ashbyhq.com/alan
+    notes: "Paris. Health insurance."
+    enabled: true
+  - name: Back Market
+    careers_url: https://jobs.ashbyhq.com/backmarket
+    notes: "Paris. Refurbished marketplace."
+    enabled: true
+  - name: Vestiaire Collective
+    careers_url: https://jobs.lever.co/vestiairecollective
+    notes: "Paris. Resale marketplace."
+    enabled: true
+  - name: Veepee
+    careers_url: https://jobs.lever.co/veepee
+    notes: "Saint-Denis / Paris. E-commerce."
+    enabled: true
+  - name: Malt
+    careers_url: https://jobs.lever.co/malt
+    notes: "Paris / Lyon. Freelance marketplace."
+    enabled: true
+  - name: Brevo
+    careers_url: https://jobs.lever.co/brevo
+    notes: "Paris. Marketing CRM."
+    enabled: true
+  - name: Heetch
+    careers_url: https://jobs.lever.co/heetch
+    notes: "Paris. Ride-hailing."
+    enabled: true
+  - name: Sorare
+    careers_url: https://jobs.ashbyhq.com/sorare
+    notes: "Paris."
+    enabled: true
+  - name: Ankorstore
+    careers_url: https://jobs.ashbyhq.com/ankorstore
+    notes: "Paris. Wholesale marketplace."
+    enabled: true
+
+  # Data consultancies (hire Power BI / Fabric / dbt profiles)
+  - name: Artefact
+    careers_url: https://job-boards.greenhouse.io/artefact
+    api: https://boards-api.greenhouse.io/v1/boards/artefact/jobs
+    notes: "Paris. Data & AI consultancy."
+    enabled: true
+  - name: Ekimetrics
+    careers_url: https://jobs.lever.co/ekimetrics
+    notes: "Paris. Data science consultancy."
+    enabled: true
+  - name: Theodo
+    careers_url: https://jobs.lever.co/theodo
+    notes: "Paris. Tech consultancy incl. data."
+    enabled: true
+
+# -- Job boards ---------------------------------------------------------------
+job_boards:
+  # Welcome to the Jungle: main board for Paris tech/data jobs. Server-side
+  # filter = France offices + full-time or freelance + ENGLISH-language postings
+  # (language:en keeps ~1 in 5 France data postings; checked 2026-11-04).
+  - name: Welcome to the Jungle — France data
+    provider: wttj
+    wttj:
+      filters: 'offices.country_code:FR AND language:en AND (contract_type:full_time OR contract_type:freelance)'
+      queries:
+        - "analytics engineer"
+        - "data engineer"
+        - "data analyst"
+        - "business intelligence"
+        - "power bi"
+        - "microsoft fabric"
+        - "dbt"
+        - "databricks"
+      max_hits: 500
+    enabled: true
