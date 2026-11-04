@@ -1,6 +1,6 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-04 20:17 UTC
+France · English-only · data roles · updated 2026-11-04 20:24 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
@@ -13,7 +13,7 @@ Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 fo
 | **85** | AQEMIA | [Senior Data Engineer](https://www.welcometothejungle.com/en/companies/aqemia/jobs/senior-data-engineer_paris_ccvnichv) | Paris, France | 2026-10-19 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **85** | Vestiaire Collective | [Senior Analytics Engineer](https://jobs.lever.co/vestiairecollective/6af3345e-4f53-4c8f-8f29-8ec16d17a123) | Paris | 2026-10-20 | SQL, dbt, Python, Snowflake, ETL/ELT, Airflow |
 | **83** | Luxurynsight | [Data Engineer Luxurynsight](https://www.welcometothejungle.com/en/companies/luxurynsight/jobs/data-engineer-luxurynsight_paris) | Paris, France | 2026-10-12 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
-| **70** | 360Learning | [Analytics Engineer](https://www.welcometothejungle.com/en/companies/360learning/jobs/analytics-engineer_paris) | Paris, France, Remote | 2026-10-22 | SQL, dbt, Snowflake, Data modeling, KPI dashboards |
+| **70** | 360Learning | [Analytics Engineer](https://www.welcometothejungle.com/en/companies/360learning/jobs/analytics-engineer_paris) | Paris | 2026-10-22 | SQL, dbt, Snowflake, Data modeling, KPI dashboards |
 | **65** | Voyage Privé | [Data Analyst (Data Partner) – m/f/d](https://www.welcometothejungle.com/en/companies/voyage-prive/jobs/data-analyst-data-partner-m-f-d_aix-en-provence) | Aix-en-Provence, France, Remote | 2026-11-04 | Power BI, SQL, Data modeling, Semantic models, KPI dashboards |
 | **65** | Swile | [Senior Data Platform Engineer](https://jobs.lever.co/swile/6d983bef-f1d3-48c3-b666-fa47d905c13f) | Montpellier, France | 2026-10-09 | SQL, dbt, Python, Snowflake, Airflow |
 | **63** | Swan | [Senior Data Analyst](https://www.welcometothejungle.com/en/companies/swan/jobs/senior-data-analyst_paris_SWAN_8J76qed) | Paris, France | 2026-10-16 | SQL, dbt, Data quality, KPI dashboards, FP&A / finance |
