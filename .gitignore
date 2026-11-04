@@ -314,3 +314,4 @@ data/daily-scan.log
 data/*.tmp
 *.tmp
 .env
+!package-lock.json
