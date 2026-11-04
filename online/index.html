@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Job Inbox</title>
+<!-- Online Job Inbox. This page contains NO personal data: it loads matches
+     from the owner's PRIVATE GitHub repo using a token stored only in this
+     browser (localStorage). Without the token it shows nothing. -->
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--muted:#5f6672;--line:#e3e6eb;--accent:#2457d6;--good:#147a3d;--goodbg:#e3f5ea;--mid:#8a5a00;--midbg:#fdf1d8;--bad:#a1262b;--badbg:#fbe5e6;--star:#c98a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111318;--card:#1a1d24;--ink:#e8eaee;--muted:#9aa1ad;--line:#2b303a;--accent:#7aa2ff;--good:#6fd39a;--goodbg:#173a26;--mid:#f0c060;--midbg:#3a2f14;--bad:#ff8c90;--badbg:#3d1c1f;--star:#f2c14e}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Segoe UI",system-ui,-apple-system,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+h1{font-size:22px;margin:0}h1 small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
+.pills{display:flex;gap:6px;flex-wrap:wrap}.pill{font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.pill.on{color:var(--good);border-color:var(--good)}.pill.warn{color:var(--mid);border-color:var(--mid)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.add{display:grid;grid-template-columns:1fr 180px auto;gap:8px}
+@media (max-width:700px){.add{grid-template-columns:1fr}}
+input,button{font:inherit}input[type=url],input[type=text],input[type=password]{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+button{padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}button:disabled{opacity:.5;cursor:wait}
+.kinds{display:flex;gap:14px;margin-top:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.msg{margin-top:10px;font-size:14px;min-height:1.2em}
+.tabs{display:flex;gap:6px;margin:6px 0 12px;flex-wrap:wrap}.tabs button.sel{border-color:var(--accent);color:var(--accent);font-weight:600}
+.job{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.job:first-child{border-top:0}
+.score{font-weight:700;font-size:18px;text-align:center;border-radius:10px;padding:8px 0}
+.s-strong{background:var(--goodbg);color:var(--good)}.s-match{background:var(--midbg);color:var(--mid)}.s-low{background:var(--bg);color:var(--muted)}.s-rej{background:var(--badbg);color:var(--bad);font-size:12px}
+.t{font-weight:600;overflow-wrap:anywhere}.co{color:var(--muted);font-size:13px}.star{color:var(--star)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.chip{font-size:11.5px;padding:2px 7px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.chip.gap{color:var(--bad);border-color:var(--badbg)}
+.why{font-size:12.5px;color:var(--bad);margin-top:4px}
+.acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.acts a,.acts button{font-size:13px;padding:6px 10px}
+.acts a{color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:8px}
+.empty{color:var(--muted);padding:18px 0;text-align:center}
+.src{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px;overflow-wrap:anywhere}.src:first-child{border-top:0}
+.src a{color:var(--accent)}
+details summary{cursor:pointer;font-weight:600}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.setup label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+.setup ol{padding-left:20px;margin:8px 0}.setup li{margin:4px 0}.setup a{color:var(--accent)}
+.hidden{display:none}
+@media (max-width:640px){.job{grid-template-columns:50px 1fr}.acts{grid-column:1/-1;justify-content:flex-start}}
+</style>
+</head>
+<body><div class="wrap">
+<header><h1>Job Inbox<small>France · English-only · data roles — online</small></h1>
+<div class="row"><div class="pills" id="pills"></div><button id="refresh">Refresh</button><button id="run">Run scan now</button><button id="settingsBtn">Settings</button></div></header>
+
+<section class="card setup hidden" id="setup">
+  <b>Connect to your private repo</b>
+  <ol>
+    <li>Create a <a id="tokenLink" target="_blank" rel="noopener">fine-grained GitHub token</a> — Repository access: <b>only</b> your job repo · Permissions: <b>Contents: Read and write</b>, <b>Actions: Read and write</b>.</li>
+    <li>Paste it below. It is saved only in <i>this</i> browser and sent only to api.github.com.</li>
+  </ol>
+  <label for="repo">Repository (owner/name)</label>
+  <input type="text" id="repo" spellcheck="false">
+  <label for="token">Token</label>
+  <input type="password" id="token" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+  <div class="row" style="margin-top:10px"><button class="primary" id="save">Save &amp; connect</button><button id="forget">Forget token on this device</button></div>
+  <div class="msg" id="setupMsg"></div>
+</section>
+
+<div id="app" class="hidden">
+<section class="card">
+<form id="addf"><div class="add">
+<input type="url" id="url" placeholder="Paste a job link or a careers-site link…" required>
+<input type="text" id="name" placeholder="Company name (optional)">
+<button class="primary" id="addb" type="submit">Add</button></div>
+<div class="kinds"><label><input type="radio" name="k" value="auto" checked> Detect automatically</label>
+<label><input type="radio" name="k" value="job"> It's one job posting</label>
+<label><input type="radio" name="k" value="site"> It's a careers site — watch it daily (priority)</label></div>
+<div class="msg" id="msg"></div></form>
+</section>
+
+<section class="card"><div class="tabs" id="tabs"></div><div id="list"></div></section>
+<section class="card"><details><summary>Priority sources (scanned first every morning)</summary><div id="srcs" style="margin-top:8px"></div></details></section>
+</div>
+</div>
+<script>
+'use strict';
+const DEFAULT_REPO = 'Murali-Krishna-Data-Protfolio/career-ops-france';
+const LS = { get(k) { try { return localStorage.getItem(k) || ''; } catch { return ''; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} }, del(k) { try { localStorage.removeItem(k); } catch {} } };
+let REPO = LS.get('ji.repo') || DEFAULT_REPO, TOKEN = LS.get('ji.token');
+let S = { matches: [], priority: [], lastRun: null }, tab = 'matches';
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const safeUrl = (u) => /^https?:\/\//i.test(String(u || '')) ? String(u) : '#';
+const b64dec = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s+/g, '')), (c) => c.charCodeAt(0)));
+const b64enc = (s) => { const bytes = new TextEncoder().encode(s); let bin = ''; bytes.forEach((x) => { bin += String.fromCharCode(x); }); return btoa(bin); };
+
+async function gh(path, opts = {}) {
+  const r = await fetch(`https://api.github.com${path}`, {
+    cache: 'no-store', ...opts,
+    headers: { Accept: opts.raw ? 'application/vnd.github.raw' : 'application/vnd.github+json', Authorization: `Bearer ${TOKEN}`, 'X-GitHub-Api-Version': '2022-11-28', ...(opts.body ? { 'Content-Type': 'application/json' } : {}) },
+  });
+  if (r.status === 204) return null;
+  if (!r.ok) { const t = await r.text(); const e = new Error(`GitHub ${r.status}: ${(t.match(/"message":"([^"]+)"/) || [, t])[1].slice(0, 160)}`); e.status = r.status; throw e; }
+  return opts.raw ? r.text() : r.json();
+}
+const raw = (file) => gh(`/repos/${REPO}/contents/${file}?ref=main&t=${Date.now()}`, { raw: true });
+
+function parseMatches(text) {
+  const by = new Map();
+  for (const l of String(text || '').replace(/^﻿/, '').split(/\r?\n/)) {
+    if (!l.trim()) continue; let r; try { r = JSON.parse(l); } catch { continue; }
+    if (!r || !r.url) continue;
+    const p = by.get(r.url);
+    if (!p || String(r.updatedAt || r.addedAt || '') >= String(p.updatedAt || p.addedAt || '')) by.set(r.url, r);
+  }
+  return [...by.values()].sort((a, b) => (b.priority ? 1 : 0) - (a.priority ? 1 : 0) || (b.score || 0) - (a.score || 0));
+}
+function parsePriority(yml, watchJson) {
+  const out = [];
+  for (const block of String(yml || '').split(/\n\s*-\s+name:\s*/).slice(1)) {
+    if (!/\n\s*priority:\s*true/.test(block)) continue;
+    out.push({ name: block.split('\n')[0].replace(/^["']|["']\s*$/g, '').trim(), url: (block.match(/careers_url:\s*(\S+)/) || [])[1] || '', kind: 'scanner' });
+  }
+  try { for (const w of JSON.parse(watchJson || '[]')) out.push({ name: w.name, url: w.url, kind: 'watched page' }); } catch {}
+  return out;
+}
+
+async function load() {
+  const [m, p, w, runs] = await Promise.all([
+    raw('data/matches.jsonl').catch((e) => { if (e.status === 404) return ''; throw e; }),
+    raw('portals.yml').catch(() => ''),
+    raw('data/watch-pages.json').catch(() => '[]'),
+    gh(`/repos/${REPO}/actions/workflows/daily-scan.yml/runs?per_page=1`).catch(() => null),
+  ]);
+  S = { matches: parseMatches(m), priority: parsePriority(p, w), lastRun: runs && runs.workflow_runs && runs.workflow_runs[0] };
+  render();
+}
+
+function filt() { const m = S.matches; return {
+  matches: m.filter((x) => x.isMatch && x.status === 'new'),
+  all: m.filter((x) => !x.englishIssue && x.status !== 'dismissed'),
+  applied: m.filter((x) => x.status === 'applied'),
+  rejected: m.filter((x) => x.englishIssue),
+  dismissed: m.filter((x) => x.status === 'dismissed' && !x.englishIssue) }; }
+const LABEL = { matches: 'Matches', all: 'All English postings', applied: 'Applied', rejected: 'Rejected (French)', dismissed: 'Dismissed' };
+
+function render() {
+  const r = S.lastRun;
+  $('pills').innerHTML = '<span class="pill on">GitHub ✓</span>' + (r
+    ? `<span class="pill ${r.conclusion === 'success' ? 'on' : r.status !== 'completed' ? 'warn' : ''}" title="${esc(r.html_url)}">Last scan ${esc(new Date(r.created_at).toLocaleString())} · ${esc(r.status === 'completed' ? r.conclusion : r.status)}</span>` : '');
+  const F = filt();
+  $('tabs').innerHTML = Object.keys(LABEL).map((k) => `<button data-t="${k}" class="${k === tab ? 'sel' : ''}">${LABEL[k]} (${F[k].length})</button>`).join('');
+  const L = F[tab];
+  $('list').innerHTML = L.length ? L.map(job).join('') : `<div class="empty">${tab === 'matches' ? 'No open matches. The 08:00 Paris scan checks Allianz France first, then everything else.' : 'Nothing here.'}</div>`;
+  $('srcs').innerHTML = S.priority.map((p) => `<div class="src"><span>⭐ <b>${esc(p.name)}</b> <span class="co">· ${esc(p.kind)}</span></span><a href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener">${esc(p.url)}</a></div>`).join('') || '<div class="empty">None yet.</div>';
+}
+function job(m) {
+  const cls = m.englishIssue ? 's-rej' : m.verdict === 'strong' ? 's-strong' : m.verdict === 'match' ? 's-match' : 's-low';
+  return `<div class="job"><div class="score ${cls}">${m.englishIssue ? 'FR' : esc(m.score)}</div><div>`
+    + `<div class="t">${m.priority ? '<span class="star">⭐ </span>' : ''}${esc(m.title)}</div>`
+    + `<div class="co">${esc(m.company)} · ${esc(m.location || 'France')}${m.posted ? ' · posted ' + esc(m.posted) : ''} · ${esc(m.source)}${m.statedYears ? ' · asks ' + esc(m.statedYears) + '+ yrs' : ''}</div>`
+    + (m.englishIssue ? `<div class="why">${esc(m.englishIssue)}</div>` : '')
+    + `<div class="chips">${(m.hits || []).map((h) => `<span class="chip">${esc(h)}</span>`).join('')}${(m.gaps || []).map((g) => `<span class="chip gap">gap: ${esc(g)}</span>`).join('')}</div></div>`
+    + `<div class="acts"><a href="${esc(safeUrl(m.url))}" target="_blank" rel="noopener">Open</a>`
+    + (m.status !== 'applied' ? `<button data-s="applied" data-u="${esc(m.url)}">Applied</button>` : '')
+    + (m.status !== 'dismissed' ? `<button data-s="dismissed" data-u="${esc(m.url)}">Dismiss</button>` : `<button data-s="new" data-u="${esc(m.url)}">Restore</button>`)
+    + '</div></div>';
+}
+
+// Status change = append a newer record line to data/matches.jsonl (newest wins on read).
+async function setStatus(url, status) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const f = await gh(`/repos/${REPO}/contents/data/matches.jsonl?ref=main&t=${Date.now()}`);
+    const text = b64dec(f.content);
+    const cur = parseMatches(text).find((x) => x.url === url);
+    if (!cur) throw new Error('posting not found');
+    const rec = { ...cur, status, updatedAt: new Date().toISOString() };
+    const next = text.replace(/\s*$/, '\n') + JSON.stringify(rec) + '\n';
+    try {
+      await gh(`/repos/${REPO}/contents/data/matches.jsonl`, { method: 'PUT', body: JSON.stringify({ message: `Online Job Inbox: ${status} — ${cur.company}`, content: b64enc(next), sha: f.sha, branch: 'main' }) });
+      return rec;
+    } catch (e) { if (e.status !== 409 && e.status !== 422) throw e; }
+  }
+  throw new Error('repo busy, try again');
+}
+
+async function dispatch(workflow, inputs) {
+  const since = Date.now() - 5000;
+  await gh(`/repos/${REPO}/actions/workflows/${workflow}/dispatches`, { method: 'POST', body: JSON.stringify({ ref: 'main', inputs }) });
+  for (let i = 0; i < 90; i++) { // ~6 min
+    await new Promise((r) => setTimeout(r, i < 3 ? 3000 : 4000));
+    const runs = await gh(`/repos/${REPO}/actions/workflows/${workflow}/runs?per_page=5&event=workflow_dispatch`);
+    const run = (runs.workflow_runs || []).find((x) => Date.parse(x.created_at) >= since);
+    if (run && run.status === 'completed') return run;
+    if (run) $('msg').textContent = `Working in the cloud… (${run.status})`;
+  }
+  throw new Error('still running — refresh in a minute');
+}
+
+$('tabs').onclick = (e) => { const t = e.target.dataset.t; if (t) { tab = t; render(); } };
+$('list').onclick = async (e) => {
+  const b = e.target; if (!b.dataset.s) return;
+  b.disabled = true; $('msg').textContent = 'Saving…';
+  try { const rec = await setStatus(b.dataset.u, b.dataset.s); const m = S.matches.find((x) => x.url === rec.url); if (m) m.status = rec.status; render(); $('msg').textContent = `Marked ${b.dataset.s}.`; }
+  catch (err) { $('msg').textContent = 'Error: ' + err.message; b.disabled = false; }
+};
+$('addf').onsubmit = async (e) => {
+  e.preventDefault();
+  const url = $('url').value.trim(), name = $('name').value.trim(), kind = document.querySelector('input[name=k]:checked').value;
+  if (!/^https?:\/\//i.test(url)) { $('msg').textContent = 'Paste a full http(s) link.'; return; }
+  $('addb').disabled = true; $('msg').textContent = 'Sent to the cloud — reading the page, checking English, scoring against your CV (about 1–2 min)…';
+  try {
+    const run = await dispatch('inbox-add.yml', { url, kind, name });
+    await load();
+    const rec = S.matches.find((x) => x.url === url);
+    if (run.conclusion !== 'success') $('msg').innerHTML = `Cloud job ${esc(run.conclusion)} — <a href="${esc(run.html_url)}" target="_blank" rel="noopener">see details</a>.`;
+    else if (rec) $('msg').textContent = rec.englishIssue ? `Saved as rejected — ${rec.englishIssue}.` : `${rec.isMatch ? '✅ Match' : 'Saved'} — ${rec.company}: ${rec.title} · score ${rec.score}/100.${rec.isMatch ? ' Alert sent to your configured channels.' : ''}`;
+    else $('msg').innerHTML = `Done — see <a href="${esc(run.html_url)}" target="_blank" rel="noopener">the result</a> (careers sites appear under Priority sources).`;
+    $('url').value = ''; if (rec) tab = rec.isMatch ? 'matches' : rec.englishIssue ? 'rejected' : 'all'; render();
+  } catch (err) { $('msg').textContent = 'Error: ' + err.message; }
+  $('addb').disabled = false;
+};
+$('run').onclick = async () => {
+  $('run').disabled = true; $('msg').textContent = 'Full scan started in the cloud (Allianz France first) — about 2–4 min…';
+  try { const run = await dispatch('daily-scan.yml', {}); await load(); $('msg').textContent = `Scan ${run.conclusion}. ${filt().matches.length} open matches.`; }
+  catch (err) { $('msg').textContent = 'Error: ' + err.message; }
+  $('run').disabled = false;
+};
+$('refresh').onclick = () => load().then(() => { $('msg').textContent = 'Up to date.'; }).catch((e) => { $('msg').textContent = 'Error: ' + e.message; });
+
+function showSetup(msg) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('repo').value = REPO; $('setupMsg').textContent = msg || ''; }
+$('settingsBtn').onclick = () => showSetup();
+$('save').onclick = async () => {
+  REPO = $('repo').value.trim() || DEFAULT_REPO; TOKEN = $('token').value.trim() || TOKEN;
+  $('setupMsg').textContent = 'Checking…';
+  try { await gh(`/repos/${REPO}`); LS.set('ji.repo', REPO); LS.set('ji.token', TOKEN); $('token').value = ''; start(); }
+  catch (e) { $('setupMsg').textContent = `Could not open ${REPO}: ${e.message}`; }
+};
+$('forget').onclick = () => { LS.del('ji.token'); TOKEN = ''; $('setupMsg').textContent = 'Token removed from this device.'; };
+$('tokenLink').href = 'https://github.com/settings/personal-access-tokens/new?name=Job%20Inbox&description=Online%20Job%20Inbox&expires_in=365&contents=write&actions=write';
+
+async function start() {
+  if (!TOKEN) return showSetup();
+  try { await load(); $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); }
+  catch (e) { showSetup(e.status === 401 || e.status === 404 ? 'Token invalid or no access to the repo — create a new one.' : 'Error: ' + e.message); }
+}
+start();
+</script>
+</body>
+</html>

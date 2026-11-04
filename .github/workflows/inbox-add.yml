@@ -1,0 +1,68 @@
+name: Job Inbox — add link
+
+# Triggered by the online Job Inbox page (or Actions → Run workflow).
+run-name: "Add ${{ inputs.kind }}: ${{ inputs.url }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Job posting or careers-site link
+        required: true
+      kind:
+        description: auto | job | site
+        required: false
+        default: auto
+      name:
+        description: Company name (optional)
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repo-writes
+  cancel-in-progress: false
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm ci --no-audit --no-fund
+      - name: Read, check English, score vs CV, save, alert
+        env:
+          TZ: Europe/Paris
+          ALERT_DESKTOP: '0'
+          ALERT_GMAIL_USER: ${{ secrets.ALERT_GMAIL_USER }}
+          ALERT_GMAIL_APP_PASSWORD: ${{ secrets.ALERT_GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_WHATSAPP_PHONE: ${{ secrets.ALERT_WHATSAPP_PHONE }}
+          ALERT_CALLMEBOT_APIKEY: ${{ secrets.ALERT_CALLMEBOT_APIKEY }}
+          INBOX_URL: ${{ inputs.url }}
+          INBOX_KIND: ${{ inputs.kind }}
+          INBOX_NAME: ${{ inputs.name }}
+        run: node inbox-add.mjs --url "$INBOX_URL" --kind "$INBOX_KIND" --name "$INBOX_NAME" | tee result.txt
+      - name: Save to the repo
+        run: |
+          git config user.name  "career-ops bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pipeline.md data/matches.jsonl data/watch-pages.json portals.yml MATCHES.md 2>/dev/null || true
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git commit -m "Online Job Inbox: $(grep '^RESULT:' result.txt | head -c 180)"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 5; done
+          exit 1
+      - name: Result
+        if: always()
+        run: grep '^RESULT:' result.txt >> "$GITHUB_STEP_SUMMARY" || true
