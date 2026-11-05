@@ -26,4 +26,7 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://www.welcometothejungle.com/en/companies/alma/jobs/business-analyst_paris_ALMA_dKeWokk | Alma | Business Analyst | Paris, France | posted: 2026-10-15 | yrs: none stated
 - [ ] https://www.welcometothejungle.com/en/companies/accor-tech-and-digital/jobs/senior-consumer-market-insights-business-analyst-m-f-x_issy-les-moulineaux | Accor Tech & Digital | Senior Consumer, Market Insights & Business Analyst - M/F/X | Issy-les-Moulineaux, France | posted: 2026-10-12 | yrs: none stated
 
+- [ ] https://www.welcometothejungle.com/en/companies/resilience/jobs/analytics-software-engineer_paris | Resilience Care | Software & Analytics Engineer | Paris, France, Remote | posted: 2026-11-01 | yrs: none stated
+- [ ] https://www.welcometothejungle.com/en/companies/sekoia/jobs/finance-data-analyst | Sekoia | Finance Data Analyst | Rennes, France, Remote | posted: 2026-11-05 | yrs: none stated
+
 ## Processed

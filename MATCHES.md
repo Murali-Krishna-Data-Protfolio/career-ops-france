@@ -1,17 +1,19 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-04 20:24 UTC
+France · English-only · data roles · updated 2026-11-05 15:04 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
-## ✅ Open matches (13)
+## ✅ Open matches (15)
 
 | Score | Company | Role | Location | Date | CV skills found |
 |---:|---|---|---|---|---|
 | **95** | Valtech | [Data Engineer - Snowflake](https://www.welcometothejungle.com/en/companies/valtech/jobs/data-engineer-snowflake_fr_7g5tdofs) | France | 2026-11-04 | Power BI, SQL, dbt, Azure, Python, Snowflake |
+| **95** | Sekoia | [Finance Data Analyst](https://www.welcometothejungle.com/en/companies/sekoia/jobs/finance-data-analyst) | Rennes, France, Remote | 2026-11-05 | SQL, Azure, Python, ETL/ELT, Data modeling, Data quality |
 | **88** | Mistral AI | [People Tech & Analytics Engineer](https://jobs.ashbyhq.com/mistral.ai/38140494-a26d-4b24-a777-3dd944215732) | Paris · France · London · United Kingdom | 2026-10-28 | Power BI, SQL, dbt, Snowflake, Data quality, Lineage/governance |
 | **85** | AQEMIA | [Senior Data Engineer](https://www.welcometothejungle.com/en/companies/aqemia/jobs/senior-data-engineer_paris_ccvnichv) | Paris, France | 2026-10-19 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **85** | Vestiaire Collective | [Senior Analytics Engineer](https://jobs.lever.co/vestiairecollective/6af3345e-4f53-4c8f-8f29-8ec16d17a123) | Paris | 2026-10-20 | SQL, dbt, Python, Snowflake, ETL/ELT, Airflow |
+| **85** | Resilience Care | [Software & Analytics Engineer](https://www.welcometothejungle.com/en/companies/resilience/jobs/analytics-software-engineer_paris) | Paris, France, Remote | 2026-11-01 | SQL, dbt, Python, Data modeling, Semantic models, CI/CD |
 | **83** | Luxurynsight | [Data Engineer Luxurynsight](https://www.welcometothejungle.com/en/companies/luxurynsight/jobs/data-engineer-luxurynsight_paris) | Paris, France | 2026-10-12 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **70** | 360Learning | [Analytics Engineer](https://www.welcometothejungle.com/en/companies/360learning/jobs/analytics-engineer_paris) | Paris | 2026-10-22 | SQL, dbt, Snowflake, Data modeling, KPI dashboards |
 | **65** | Voyage Privé | [Data Analyst (Data Partner) – m/f/d](https://www.welcometothejungle.com/en/companies/voyage-prive/jobs/data-analyst-data-partner-m-f-d_aix-en-provence) | Aix-en-Provence, France, Remote | 2026-11-04 | Power BI, SQL, Data modeling, Semantic models, KPI dashboards |
