@@ -22,13 +22,22 @@ export function tierOf(m) {
 
 const KEEP = ['url', 'company', 'title', 'location', 'posted', 'addedAt', 'updatedAt', 'source', 'priority', 'score',
   'hits', 'gaps', 'statedYears', 'status', 'referral', 'note', 'englishIssue'];
+// Only the last 3 weeks of finds stay on the page; applied jobs are kept.
+export const WINDOW_DAYS = 21;
+export function inWindow(m, now = Date.now()) {
+  if (m.status === "applied") return true;
+  const t = Date.parse(m.addedAt || m.posted || "");
+  return Number.isFinite(t) && now - t <= WINDOW_DAYS * 86_400_000;
+}
 const jobs = loadMatches()
+  .filter((m) => inWindow(m))
   .map((m) => ({ ...Object.fromEntries(KEEP.filter((k) => m[k] !== undefined).map((k) => [k, m[k]])), tier: tierOf(m) }))
   .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 
 const repo = process.env.GITHUB_REPOSITORY || 'Murali-Krishna-Data-Protfolio/job-radar';
 const data = {
   generatedAt: new Date().toISOString(),
+  windowDays: WINDOW_DAYS,
   repo,
   thresholds: THRESHOLD,
   prioritySources: [

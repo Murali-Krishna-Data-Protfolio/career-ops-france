@@ -74,6 +74,7 @@ input[type=search]:focus{outline:2px solid var(--accent);outline-offset:1px}
 <main class="wrap">
   <div id="list" aria-live="polite"></div>
   <details class="sources" id="sources"></details>
+  <p class="sources" id="window"></p>
 </main>
 
 <script>
@@ -189,6 +190,7 @@ input[type=search]:focus{outline:2px solid var(--accent);outline-offset:1px}
       state = await r.json();
       const when = state.generatedAt ? new Date(state.generatedAt) : null;
       $('upd').textContent = when && !isNaN(when) ? 'Updated ' + when.toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+      $("window").textContent = state.windowDays ? `Jobs stay for ${state.windowDays} days after they are found. Applied jobs stay.` : "";
       renderTabs();
       renderList();
       renderSources();
