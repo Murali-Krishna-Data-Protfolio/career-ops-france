@@ -37,6 +37,15 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Build _site
         run: node build-site.mjs
+      - name: Email/WhatsApp me if the page build failed
+        if: failure()
+        env:
+          ALERT_GMAIL_USER: ${{ secrets.ALERT_GMAIL_USER }}
+          ALERT_GMAIL_APP_PASSWORD: ${{ secrets.ALERT_GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_WHATSAPP_PHONE: ${{ secrets.ALERT_WHATSAPP_PHONE }}
+          ALERT_CALLMEBOT_APIKEY: ${{ secrets.ALERT_CALLMEBOT_APIKEY }}
+        run: node notify-failure.mjs "Job Radar page build" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
