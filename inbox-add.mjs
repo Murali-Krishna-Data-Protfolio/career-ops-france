@@ -30,11 +30,7 @@ if (kind === 'site') {
     console.log(`RESULT: Saved as rejected — ${rec.englishIssue} (English-only rule).`);
   } else {
     appendPipeline({ ...rec, note: `online ${new Date().toISOString().slice(0, 10)} · match ${rec.score}` });
-    let alert = '';
-    if (rec.isHigh) {
-      const r = await notifyMatches([rec], { reason: 'added from Job Radar', high: true });
-      alert = ` Alert: ${Object.entries(r).map(([k, v]) => `${k} ${v.ok ? 'sent' : 'failed'}`).join(', ') || 'no channel configured'}.`;
-    }
+    const alert = ' Added to the next daily digest.';
     console.log(`RESULT: ${rec.isHigh ? '🔥 High priority' : rec.isMatch ? '✅ Match' : 'Saved'} —${rec.company}: ${rec.title} · score ${rec.score}/100.${alert}`);
   }
 }

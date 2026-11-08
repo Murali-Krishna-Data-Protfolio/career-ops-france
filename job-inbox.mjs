@@ -87,11 +87,7 @@ const api = {
     }
     const added = appendPipeline({ ...rec, note: `manual ${new Date().toISOString().slice(0, 10)} · match ${rec.score}` });
     scheduleSync(`PC: added ${rec.company} — ${rec.title}`);
-    let alert = '';
-    if (rec.isMatch) {
-      const r = await notifyMatches([rec], { reason: 'added from Job Inbox' });
-      alert = ` Alert sent (${Object.entries(r).map(([k, v]) => `${k}: ${v.ok ? 'ok' : 'failed'}`).join(', ') || 'no channels'}).`;
-    }
+    const alert = ' It goes in the next daily digest.';
     return {
       ok: true, kind, rec,
       message: `${rec.isMatch ? '✅ Match' : 'Saved'} — ${rec.company}: ${rec.title} · score ${rec.score}/100.${added ? ' Added to pipeline.' : ' Already in pipeline.'}${alert}`,
