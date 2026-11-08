@@ -19,7 +19,7 @@ import path from 'node:path';
 import { ROOT, pipelineEntries, priorityCompanies, loadMatches, markNotified } from './lib/job-store.mjs';
 import { writeMatchesReport } from './lib/matches-report.mjs';
 import { evaluatePosting, scanWatchPages, THRESHOLD } from './lib/job-intake.mjs';
-import { notifyMatches, channelStatus } from './lib/notify.mjs';
+import { sendDaily, notifyMatches, channelStatus } from './lib/notify.mjs';
 
 const args = new Set(process.argv.slice(2));
 // --log: append to data/daily-scan.log (used by the 08:00 scheduled task).
@@ -92,13 +92,15 @@ async function main() {
   const matches = all.filter((r) => r.isHigh); // only 🔥 HIGH PRIORITY jobs are alerted
   log(`   ${all.length} new postings, ${all.filter((r) => r.isMatch).length} match your CV, ${matches.length} high priority`);
 
-  log('5) Alerts (high priority only)');
-  if (!matches.length) log('  no high-priority jobs today — no alert sent');
-  else if (args.has('--no-notify')) log('  --no-notify: alerts skipped');
+  log('5) Daily digest');
+  const DAY = 21 * 86_400_000;
+  const store = loadMatches();
+  const inWindow = store.filter((m) => m.status === 'applied' || (Date.parse(m.addedAt || m.posted || '') && Date.now() - Date.parse(m.addedAt || m.posted) <= DAY));
+  const high = inWindow.filter((m) => m.isHigh && m.status !== 'dismissed').sort((x, y) => (y.score ?? 0) - (x.score ?? 0));
+  if (args.has('--no-notify')) log('  --no-notify: digest skipped');
   else {
-    const r = await notifyMatches(matches, { reason: `daily scan ${new Date().toISOString().slice(0, 10)}`, high: true });
-    log('  sent:', JSON.stringify(r));
-    for (const [channel, res] of Object.entries(r)) if (res?.ok) markNotified(matches.map((m) => m.url), channel);
+    const r = await sendDaily({ newScored: all.length, high, windowCount: inWindow.length, appliedCount: store.filter((m) => m.status === 'applied').length });
+    log('  sent:', JSON.stringify(Object.fromEntries(Object.entries(r).map(([k, v]) => [k, v.ok ? 'ok' : v.error]))));
   }
   if (process.env.GITHUB_ACTIONS) { // only the cloud writes MATCHES.md (avoids merge conflicts)
     const rep = writeMatchesReport();
