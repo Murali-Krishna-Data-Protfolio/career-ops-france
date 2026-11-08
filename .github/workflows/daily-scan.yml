@@ -75,3 +75,11 @@ jobs:
             sleep 5
           done
           exit 1
+
+      - name: Email me if the scan failed
+        if: failure() && steps.gate.outputs.run == 'true'
+        env:
+          ALERT_GMAIL_USER: ${{ secrets.ALERT_GMAIL_USER }}
+          ALERT_GMAIL_APP_PASSWORD: ${{ secrets.ALERT_GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+        run: node notify-failure.mjs "Daily job scan" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

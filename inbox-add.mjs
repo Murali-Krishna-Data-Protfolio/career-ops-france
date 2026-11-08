@@ -31,11 +31,11 @@ if (kind === 'site') {
   } else {
     appendPipeline({ ...rec, note: `online ${new Date().toISOString().slice(0, 10)} · match ${rec.score}` });
     let alert = '';
-    if (rec.isMatch) {
-      const r = await notifyMatches([rec], { reason: 'added from online Job Inbox' });
+    if (rec.isHigh) {
+      const r = await notifyMatches([rec], { reason: 'added from Job Radar', high: true });
       alert = ` Alert: ${Object.entries(r).map(([k, v]) => `${k} ${v.ok ? 'sent' : 'failed'}`).join(', ') || 'no channel configured'}.`;
     }
-    console.log(`RESULT: ${rec.isMatch ? '✅ Match' : 'Saved'} — ${rec.company}: ${rec.title} · score ${rec.score}/100.${alert}`);
+    console.log(`RESULT: ${rec.isHigh ? '🔥 High priority' : rec.isMatch ? '✅ Match' : 'Saved'} —${rec.company}: ${rec.title} · score ${rec.score}/100.${alert}`);
   }
 }
 writeMatchesReport();

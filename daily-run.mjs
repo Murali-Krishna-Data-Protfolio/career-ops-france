@@ -47,7 +47,7 @@ async function scoreNew(entries, source) {
   for (const e of entries) {
     if (known.has(e.url)) continue;
     const rec = await evaluatePosting({ url: e.url, company: e.company, title: e.title, location: e.location, source });
-    log(`    ${rec.isMatch ? '✅ MATCH' : rec.englishIssue ? '⛔ skip ' : '·  low  '} ${String(rec.score).padStart(3)} ${rec.priority ? '⭐' : '  '} ${rec.company} — ${rec.title}${rec.englishIssue ? ` (${rec.englishIssue})` : ''}`);
+    log(`    ${rec.isHigh ? '🔥 HIGH ' : rec.isMatch ? '✅ MATCH' : rec.englishIssue ? '⛔ skip ' : '·  low  '} ${String(rec.score).padStart(3)} ${rec.priority ? '⭐' : '  '} ${rec.company} — ${rec.title}${rec.englishIssue ? ` (${rec.englishIssue})` : ''}`);
     out.push(rec);
   }
   return out;
@@ -89,14 +89,14 @@ async function main() {
   const fresh = pipelineEntries().filter((e) => !before.has(e.url));
   const scored = await scoreNew(fresh, 'scan');
   const all = [...watched, ...scored];
-  const matches = all.filter((r) => r.isMatch);
-  log(`   ${all.length} new postings, ${matches.length} match your CV`);
+  const matches = all.filter((r) => r.isHigh); // only 🔥 HIGH PRIORITY jobs are alerted
+  log(`   ${all.length} new postings, ${all.filter((r) => r.isMatch).length} match your CV, ${matches.length} high priority`);
 
-  log('5) Alerts');
-  if (!matches.length) log('  no matches today — no alert sent');
+  log('5) Alerts (high priority only)');
+  if (!matches.length) log('  no high-priority jobs today — no alert sent');
   else if (args.has('--no-notify')) log('  --no-notify: alerts skipped');
   else {
-    const r = await notifyMatches(matches, { reason: `daily scan ${new Date().toISOString().slice(0, 10)}` });
+    const r = await notifyMatches(matches, { reason: `daily scan ${new Date().toISOString().slice(0, 10)}`, high: true });
     log('  sent:', JSON.stringify(r));
     for (const [channel, res] of Object.entries(r)) if (res?.ok) markNotified(matches.map((m) => m.url), channel);
   }

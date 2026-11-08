@@ -21,12 +21,12 @@ const log = (...a) => {
 const p = pull();
 log(p.ok ? 'pulled cloud results' : `pull failed — ${p.out}`);
 
-const unseen = loadMatches().filter((m) => m.isMatch && m.status === 'new' && !m.notified?.desktop);
+const unseen = loadMatches().filter((m) => m.isHigh && m.status === 'new' && !m.notified?.desktop);
 if (unseen.length && !args.has('--no-popup')) {
   // Desktop only here: Gmail/WhatsApp were already sent by the cloud run.
   const prev = process.env.ALERT_GMAIL_USER, prevW = process.env.ALERT_WHATSAPP_PHONE;
   delete process.env.ALERT_GMAIL_USER; delete process.env.ALERT_WHATSAPP_PHONE;
-  const r = await notifyMatches(unseen, { reason: 'cloud scan' });
+  const r = await notifyMatches(unseen, { reason: 'cloud scan', high: true });
   process.env.ALERT_GMAIL_USER = prev ?? ''; process.env.ALERT_WHATSAPP_PHONE = prevW ?? '';
   if (r.desktop?.ok) markNotified(unseen.map((m) => m.url), 'desktop');
   log(`popup for ${unseen.length} new match(es): ${r.desktop?.ok ? 'shown' : r.desktop?.error || 'desktop alerts off'}`);

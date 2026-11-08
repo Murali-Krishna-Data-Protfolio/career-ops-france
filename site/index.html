@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
+<title>Job Radar</title>
+<style>
+:root{
+  --bg:#f5f6f8;--card:#fff;--ink:#14171c;--muted:#626a76;--line:#e2e5ea;
+  --accent:#2457d6;--accent-ink:#fff;--chip:#eef1f6;
+  --high:#b42318;--high-bg:#fde8e6;--match:#117a3c;--match-bg:#e2f5ea;--other:#6b7280;--other-bg:#eef0f3;
+  --star:#b7791f;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1115;--card:#171a21;--ink:#e7e9ee;--muted:#9aa2af;--line:#2a2f3a;
+  --accent:#7aa2ff;--accent-ink:#0b1020;--chip:#222732;
+  --high:#ff8a80;--high-bg:#3a1a1a;--match:#6fd39a;--match-bg:#15311f;--other:#9aa2af;--other-bg:#23262e;
+  --star:#f2c14e;
+}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 12px) 16px 10px}
+.bar{display:flex;align-items:baseline;justify-content:space-between;gap:12px;max-width:760px;margin:0 auto}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}
+.upd{font-size:12px;color:var(--muted);text-align:right}
+.wrap{max-width:760px;margin:0 auto;padding:12px 16px calc(env(safe-area-inset-bottom) + 40px)}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:10px auto 0;max-width:760px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-height:40px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.tab[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.tab .n{opacity:.75;margin-left:4px}
+input[type=search]{width:100%;min-height:44px;margin-top:10px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit}
+input[type=search]:focus{outline:2px solid var(--accent);outline-offset:1px}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;margin:0 0 10px;text-decoration:none;color:inherit}
+.card:active{transform:scale(.995)}
+.top{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+.co{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.title{font-size:16px;font-weight:650;margin:2px 0 4px;overflow-wrap:anywhere}
+.meta{font-size:13px;color:var(--muted)}
+.score{flex:0 0 auto;text-align:center;min-width:56px;padding:6px 8px;border-radius:12px;font-weight:700;font-size:18px;line-height:1}
+.score small{display:block;font-size:10px;font-weight:600;opacity:.8;margin-top:3px}
+.s-high{background:var(--high-bg);color:var(--high)}
+.s-match{background:var(--match-bg);color:var(--match)}
+.s-other{background:var(--other-bg);color:var(--other)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-size:12px;padding:3px 8px;border-radius:999px;background:var(--chip);color:var(--muted)}
+.chip.gap{background:transparent;border:1px dashed var(--line)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--muted)}
+.pill{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip)}
+.pill.applied{background:var(--match-bg);color:var(--match)}
+.star{color:var(--star);font-weight:700}
+.empty{text-align:center;color:var(--muted);padding:40px 12px}
+.sources{margin:18px 0 0;font-size:13px;color:var(--muted)}
+.sources summary{cursor:pointer;min-height:36px;display:flex;align-items:center}
+.sources ul{margin:6px 0 0;padding-left:18px}
+.err{background:var(--high-bg);color:var(--high);padding:12px;border-radius:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>🎯 Job Radar</h1>
+    <div class="upd" id="upd">Loading…</div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Filter jobs" id="tabs"></nav>
+  <div style="max-width:760px;margin:0 auto">
+    <input type="search" id="q" placeholder="Search company, role, skill…" aria-label="Search jobs" autocomplete="off">
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="list" aria-live="polite"></div>
+  <details class="sources" id="sources"></details>
+</main>
+
+<script>
+(() => {
+  const TABS = [
+    { id: 'high',    label: '🔥 High',    test: j => j.tier === 'high' && j.status !== 'applied' && j.status !== 'dismissed' },
+    { id: 'match',   label: '✅ Matches', test: j => (j.tier === 'high' || j.tier === 'match') && j.status !== 'applied' && j.status !== 'dismissed' },
+    { id: 'applied', label: '📨 Applied', test: j => j.status === 'applied' },
+    { id: 'all',     label: 'All',        test: j => j.tier !== 'rejected' && j.status !== 'dismissed' },
+  ];
+  const TIER_LABEL = { high: 'High', match: 'Match', other: 'Low', rejected: 'Skipped' };
+  let state = { jobs: [], counts: {}, prioritySources: [] };
+  let tab = 'high';
+  const $ = id => document.getElementById(id);
+
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined && text !== null) n.textContent = text;
+    return n;
+  };
+  const tierClass = j => j.tier === 'high' ? 's-high' : j.tier === 'match' ? 's-match' : 's-other';
+  const fmtDate = s => { if (!s) return ''; const d = new Date(s); return isNaN(d) ? String(s).slice(0, 10) : d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); };
+
+  function renderTabs() {
+    const nav = $('tabs');
+    nav.replaceChildren();
+    for (const t of TABS) {
+      const count = state.jobs.filter(t.test).length;
+      const b = el('button', 'tab');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-selected', String(tab === t.id));
+      b.append(t.label);
+      b.append(el('span', 'n', count));
+      b.onclick = () => { tab = t.id; renderTabs(); renderList(); };
+      nav.append(b);
+    }
+  }
+
+  function card(j) {
+    const a = el('a', 'card');
+    a.href = j.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+
+    const top = el('div', 'top');
+    const left = el('div');
+    left.style.minWidth = '0';
+    left.append(el('div', 'co', (j.priority ? '⭐ ' : '') + (j.company || '—')));
+    left.append(el('div', 'title', j.title || 'Untitled role'));
+    left.append(el('div', 'meta', [j.location || 'France', fmtDate(j.posted || j.addedAt)].filter(Boolean).join(' · ')));
+    const sc = el('div', 'score ' + tierClass(j));
+    sc.append(String(j.score ?? '–'), el('small', null, TIER_LABEL[j.tier] || ''));
+    top.append(left, sc);
+    a.append(top);
+
+    const hits = (j.hits || []).slice(0, 8);
+    const gaps = (j.gaps || []).slice(0, 3);
+    if (hits.length || gaps.length) {
+      const chips = el('div', 'chips');
+      hits.forEach(h => chips.append(el('span', 'chip', h)));
+      gaps.forEach(g => chips.append(el('span', 'chip gap', '↳ ' + g)));
+      a.append(chips);
+    }
+
+    const row = el('div', 'row');
+    const st = j.status === 'applied' ? el('span', 'pill applied', 'Applied') : el('span', 'pill', j.source === 'manual' ? 'Added by you' : 'New');
+    row.append(st);
+    if (j.statedYears) row.append(el('span', null, j.statedYears + ' yrs asked'));
+    a.append(row);
+    return a;
+  }
+
+  function renderList() {
+    const list = $('list');
+    list.replaceChildren();
+    const q = $('q').value.trim().toLowerCase();
+    const t = TABS.find(x => x.id === tab);
+    const rows = state.jobs
+      .filter(t.test)
+      .filter(j => !q || [j.company, j.title, j.location, ...(j.hits || [])].join(' ').toLowerCase().includes(q))
+      .sort((a, b) => (b.priority ? 1 : 0) - (a.priority ? 1 : 0) || (b.score ?? 0) - (a.score ?? 0));
+    if (!rows.length) {
+      list.append(el('div', 'empty', q ? 'No jobs match that search.' : 'Nothing here yet — the next daily scan will fill this in.'));
+      return;
+    }
+    rows.forEach(j => list.append(card(j)));
+  }
+
+  function renderSources() {
+    const d = $('sources');
+    d.replaceChildren();
+    const s = el('summary', null, `Priority sources (${state.prioritySources.length})`);
+    d.append(s);
+    const ul = el('ul');
+    state.prioritySources.forEach(p => {
+      const li = el('li');
+      const link = el('a', null, p.name);
+      link.href = p.url || '#';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      li.append(link, ' · ' + p.kind);
+      ul.append(li);
+    });
+    d.append(ul);
+  }
+
+  async function load() {
+    try {
+      const r = await fetch('jobs.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      state = await r.json();
+      const when = state.generatedAt ? new Date(state.generatedAt) : null;
+      $('upd').textContent = when && !isNaN(when) ? 'Updated ' + when.toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+      renderTabs();
+      renderList();
+      renderSources();
+    } catch (err) {
+      $('upd').textContent = '';
+      $('list').replaceChildren(el('div', 'err', 'Could not load jobs.json (' + err.message + '). Refresh to try again.'));
+    }
+  }
+
+  $('q').addEventListener('input', renderList);
+  load();
+})();
+</script>
+</body>
+</html>
