@@ -31,4 +31,7 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://www.welcometothejungle.com/en/companies/bsport-1/jobs/senior-product-data-analyst_paris | Bsport | Senior Product Data Analyst | Paris, France | posted: 2026-11-06 | yrs: none stated
 
+- [ ] https://www.welcometothejungle.com/en/companies/pigment/jobs/growth-engineer_paris_PIGME_7qJl5ad | PIGMENT | Data Engineer (Growth Team) | Paris, France | posted: 2026-11-09 | yrs: none stated
+- [ ] https://www.welcometothejungle.com/en/companies/betclic/jobs/senior-data-analyst-f-m-hybrid_bordeaux_BG_N4JGkg1 | Betclic Group | Senior Data Analyst F/M (Hybrid) | Bordeaux, France | posted: 2026-11-09 | yrs: none stated
+
 ## Processed
