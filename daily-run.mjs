@@ -97,7 +97,8 @@ async function main() {
   const store = loadMatches();
   const inWindow = store.filter((m) => m.status === 'applied' || (Date.parse(m.addedAt || m.posted || '') && Date.now() - Date.parse(m.addedAt || m.posted) <= DAY));
   const high = inWindow.filter((m) => m.isHigh && m.status !== 'dismissed').sort((x, y) => (y.score ?? 0) - (x.score ?? 0));
-  if (args.has('--no-notify')) log('  --no-notify: digest skipped');
+  // Digest off by default: the page is the source. Set DAILY_DIGEST=1 to turn the message back on.
+  if (args.has('--no-notify') || process.env.DAILY_DIGEST !== '1') log('  digest off (set DAILY_DIGEST=1 to send)');
   else {
     const r = await sendDaily({ newScored: all.length, high, windowCount: inWindow.length, appliedCount: store.filter((m) => m.status === 'applied').length });
     log('  sent:', JSON.stringify(Object.fromEntries(Object.entries(r).map(([k, v]) => [k, v.ok ? 'ok' : v.error]))));
