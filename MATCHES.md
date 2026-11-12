@@ -1,10 +1,10 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-11 14:50 UTC
+France · English-only · data roles · updated 2026-11-12 15:42 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
-## ✅ Open matches (18)
+## ✅ Open matches (19)
 
 | Score | Company | Role | Location | Date | CV skills found |
 |---:|---|---|---|---|---|
@@ -17,6 +17,7 @@ Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 fo
 | **85** | Resilience Care | [Software & Analytics Engineer](https://www.welcometothejungle.com/en/companies/resilience/jobs/analytics-software-engineer_paris) | Paris, France, Remote | 2026-11-01 | SQL, dbt, Python, Data modeling, Semantic models, CI/CD |
 | **83** | Luxurynsight | [Data Engineer Luxurynsight](https://www.welcometothejungle.com/en/companies/luxurynsight/jobs/data-engineer-luxurynsight_paris) | Paris, France | 2026-10-12 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **80** | PIGMENT | [Data Engineer (Growth Team)](https://www.welcometothejungle.com/en/companies/pigment/jobs/growth-engineer_paris_PIGME_7qJl5ad) | Paris, France | 2026-11-09 | SQL, dbt, Python, Snowflake, Lineage/governance, Lakehouse/warehouse |
+| **75** | Joko | [Data Engineer](https://www.welcometothejungle.com/en/companies/joko/jobs/data-engineer_paris_JOKO_K6yZbxR) | Paris, France | 2026-11-10 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **70** | 360Learning | [Analytics Engineer](https://www.welcometothejungle.com/en/companies/360learning/jobs/analytics-engineer_paris) | Paris | 2026-10-22 | SQL, dbt, Snowflake, Data modeling, KPI dashboards |
 | **65** | Voyage Privé | [Data Analyst (Data Partner) – m/f/d](https://www.welcometothejungle.com/en/companies/voyage-prive/jobs/data-analyst-data-partner-m-f-d_aix-en-provence) | Aix-en-Provence, France, Remote | 2026-11-04 | Power BI, SQL, Data modeling, Semantic models, KPI dashboards |
 | **65** | Swile | [Senior Data Platform Engineer](https://jobs.lever.co/swile/6d983bef-f1d3-48c3-b666-fa47d905c13f) | Montpellier, France | 2026-10-09 | SQL, dbt, Python, Snowflake, Airflow |

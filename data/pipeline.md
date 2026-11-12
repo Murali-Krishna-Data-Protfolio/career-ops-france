@@ -34,4 +34,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://www.welcometothejungle.com/en/companies/pigment/jobs/growth-engineer_paris_PIGME_7qJl5ad | PIGMENT | Data Engineer (Growth Team) | Paris, France | posted: 2026-11-09 | yrs: none stated
 - [ ] https://www.welcometothejungle.com/en/companies/betclic/jobs/senior-data-analyst-f-m-hybrid_bordeaux_BG_N4JGkg1 | Betclic Group | Senior Data Analyst F/M (Hybrid) | Bordeaux, France | posted: 2026-11-09 | yrs: none stated
 
+- [ ] https://www.welcometothejungle.com/en/companies/joko/jobs/data-engineer_paris_JOKO_K6yZbxR | Joko | Data Engineer | Paris, France | 70000-100200 EUR | posted: 2026-11-10 | yrs: none stated
+
 ## Processed
