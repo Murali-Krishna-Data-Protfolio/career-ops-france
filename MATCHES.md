@@ -1,6 +1,6 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-12 15:42 UTC
+France · English-only · data roles · updated 2026-11-13 15:00 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
