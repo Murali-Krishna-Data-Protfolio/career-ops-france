@@ -36,4 +36,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://www.welcometothejungle.com/en/companies/joko/jobs/data-engineer_paris_JOKO_K6yZbxR | Joko | Data Engineer | Paris, France | 70000-100200 EUR | posted: 2026-11-10 | yrs: none stated
 
+- [ ] https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_paris | Mirakl | Data Engineer | Paris, France | posted: 2026-11-14 | yrs: 2+
+
 ## Processed
