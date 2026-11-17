@@ -38,4 +38,7 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_paris | Mirakl | Data Engineer | Paris, France | posted: 2026-11-14 | yrs: 2+
 
+- [ ] https://jobs.lever.co/vestiairecollective/eef0d028-8f21-4d44-993b-b3fd335f789b | Vestiaire Collective | Data Analyst (Maternity Cover / Temporary contract) | Paris | posted: 2026-11-17 | yrs: 5+ above band
+- [ ] https://www.welcometothejungle.com/en/companies/betclic/jobs/ai-augmented-data-engineer-f-m_bordeaux | Betclic Group | AI-Augmented Data Engineer F/M | Bordeaux, France | posted: 2026-11-17 | yrs: none stated
+
 ## Processed
