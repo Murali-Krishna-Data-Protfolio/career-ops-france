@@ -1,10 +1,10 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-17 16:36 UTC
+France · English-only · data roles · updated 2026-11-18 16:04 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
-## ✅ Open matches (22)
+## ✅ Open matches (23)
 
 | Score | Company | Role | Location | Date | CV skills found |
 |---:|---|---|---|---|---|
@@ -17,6 +17,7 @@ Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 fo
 | **85** | Resilience Care | [Software & Analytics Engineer](https://www.welcometothejungle.com/en/companies/resilience/jobs/analytics-software-engineer_paris) | Paris, France, Remote | 2026-11-01 | SQL, dbt, Python, Data modeling, Semantic models, CI/CD |
 | **83** | Luxurynsight | [Data Engineer Luxurynsight](https://www.welcometothejungle.com/en/companies/luxurynsight/jobs/data-engineer-luxurynsight_paris) | Paris, France | 2026-10-12 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **80** | PIGMENT | [Data Engineer (Growth Team)](https://www.welcometothejungle.com/en/companies/pigment/jobs/growth-engineer_paris_PIGME_7qJl5ad) | Paris, France | 2026-11-09 | SQL, dbt, Python, Snowflake, Lineage/governance, Lakehouse/warehouse |
+| **78** | Back Market | [Experienced Analytics Engineer - Customer Experience](https://jobs.ashbyhq.com/backmarket/decc0c58-1c72-4eed-9f4c-81b388bd805e) | Bordeaux · France · Paris | 2026-11-17 | SQL, dbt, Python, Data modeling, Airflow, Data quality |
 | **75** | Joko | [Data Engineer](https://www.welcometothejungle.com/en/companies/joko/jobs/data-engineer_paris_JOKO_K6yZbxR) | Paris, France | 2026-11-10 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **73** | Mirakl | [Data Engineer](https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_paris) | Paris, France | 2026-11-14 | SQL, Databricks, Python, Spark, Airflow, CI/CD |
 | **70** | 360Learning | [Analytics Engineer](https://www.welcometothejungle.com/en/companies/360learning/jobs/analytics-engineer_paris) | Paris | 2026-10-22 | SQL, dbt, Snowflake, Data modeling, KPI dashboards |

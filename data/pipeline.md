@@ -41,4 +41,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://jobs.lever.co/vestiairecollective/eef0d028-8f21-4d44-993b-b3fd335f789b | Vestiaire Collective | Data Analyst (Maternity Cover / Temporary contract) | Paris | posted: 2026-11-17 | yrs: 5+ above band
 - [ ] https://www.welcometothejungle.com/en/companies/betclic/jobs/ai-augmented-data-engineer-f-m_bordeaux | Betclic Group | AI-Augmented Data Engineer F/M | Bordeaux, France | posted: 2026-11-17 | yrs: none stated
 
+- [ ] https://jobs.ashbyhq.com/backmarket/decc0c58-1c72-4eed-9f4c-81b388bd805e | Back Market | Experienced Analytics Engineer - Customer Experience | Bordeaux · France · Paris | posted: 2026-11-17 | yrs: 3+
+
 ## Processed
