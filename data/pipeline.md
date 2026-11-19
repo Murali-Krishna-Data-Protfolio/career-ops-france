@@ -43,4 +43,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobs.ashbyhq.com/backmarket/decc0c58-1c72-4eed-9f4c-81b388bd805e | Back Market | Experienced Analytics Engineer - Customer Experience | Bordeaux · France · Paris | posted: 2026-11-17 | yrs: 3+
 
+- [ ] https://www.welcometothejungle.com/en/companies/deezer/jobs/senior-data-platform-engineer-data-operations-team-m-f-d_paris | Deezer | Senior Data Platform Engineer - Data Operations Team (m/f/d) | Paris, France | posted: 2026-11-19 | yrs: 5+
+
 ## Processed
