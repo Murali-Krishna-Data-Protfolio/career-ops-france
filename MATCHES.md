@@ -1,10 +1,10 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-20 15:51 UTC
+France · English-only · data roles · updated 2026-11-21 15:00 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
-## ✅ Open matches (24)
+## ✅ Open matches (25)
 
 | Score | Company | Role | Location | Date | CV skills found |
 |---:|---|---|---|---|---|
@@ -22,6 +22,7 @@ Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 fo
 | **73** | Mirakl | [Data Engineer](https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_paris) | Paris, France | 2026-11-14 | SQL, Databricks, Python, Spark, Airflow, CI/CD |
 | **70** | 360Learning | [Analytics Engineer](https://www.welcometothejungle.com/en/companies/360learning/jobs/analytics-engineer_paris) | Paris | 2026-10-22 | SQL, dbt, Snowflake, Data modeling, KPI dashboards |
 | **70** | Deezer | [Senior Data Platform Engineer - Data Operations Team (m/f/d)](https://www.welcometothejungle.com/en/companies/deezer/jobs/senior-data-platform-engineer-data-operations-team-m-f-d_paris) | Paris, France | 2026-11-19 | SQL, Python, Spark, ETL/ELT, Airflow, CI/CD |
+| **68** | Mirakl | [Data Engineer (CDI)](https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_bordeaux) | Bordeaux, France | 2026-11-18 | SQL, Databricks, Python, Spark, Airflow, CI/CD |
 | **65** | Voyage Privé | [Data Analyst (Data Partner) – m/f/d](https://www.welcometothejungle.com/en/companies/voyage-prive/jobs/data-analyst-data-partner-m-f-d_aix-en-provence) | Aix-en-Provence, France, Remote | 2026-11-04 | Power BI, SQL, Data modeling, Semantic models, KPI dashboards |
 | **65** | Swile | [Senior Data Platform Engineer](https://jobs.lever.co/swile/6d983bef-f1d3-48c3-b666-fa47d905c13f) | Montpellier, France | 2026-10-09 | SQL, dbt, Python, Snowflake, Airflow |
 | **65** | Betclic Group | [AI-Augmented Data Engineer F/M](https://www.welcometothejungle.com/en/companies/betclic/jobs/ai-augmented-data-engineer-f-m_bordeaux) | Bordeaux, France | 2026-11-17 | SQL, dbt, Snowflake, Semantic models, Airflow, CI/CD |

@@ -45,4 +45,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://www.welcometothejungle.com/en/companies/deezer/jobs/senior-data-platform-engineer-data-operations-team-m-f-d_paris | Deezer | Senior Data Platform Engineer - Data Operations Team (m/f/d) | Paris, France | posted: 2026-11-19 | yrs: 5+
 
+- [ ] https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_bordeaux | Mirakl | Data Engineer (CDI) | Bordeaux, France | posted: 2026-11-18 | yrs: 2+
+
 ## Processed
