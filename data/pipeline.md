@@ -47,4 +47,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_bordeaux | Mirakl | Data Engineer (CDI) | Bordeaux, France | posted: 2026-11-18 | yrs: 2+
 
+- [ ] https://www.welcometothejungle.com/en/companies/nec-software-solutions/jobs/data-analyst_hem_en43bgcp | NEC Software Solutions | Data Analyst | Hem, France, Remote | posted: 2026-11-22 | yrs: none stated
+
 ## Processed
