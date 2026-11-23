@@ -49,4 +49,6 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://www.welcometothejungle.com/en/companies/nec-software-solutions/jobs/data-analyst_hem_en43bgcp | NEC Software Solutions | Data Analyst | Hem, France, Remote | posted: 2026-11-22 | yrs: none stated
 
+- [ ] https://jobs.ashbyhq.com/backmarket/3f405891-e2e9-4943-877d-f9c97096908e | Back Market | Senior Data Analyst - Business Performance UK & US | Paris · France · London · United Kingdom · Bordeaux | posted: 2026-11-23 | yrs: 5+ above band
+
 ## Processed
