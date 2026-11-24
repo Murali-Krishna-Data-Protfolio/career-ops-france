@@ -51,4 +51,7 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 
 - [ ] https://jobs.ashbyhq.com/backmarket/3f405891-e2e9-4943-877d-f9c97096908e | Back Market | Senior Data Analyst - Business Performance UK & US | Paris · France · London · United Kingdom · Bordeaux | posted: 2026-11-23 | yrs: 5+ above band
 
+- [ ] https://job-boards.greenhouse.io/dataiku/jobs/6270038004 | Dataiku | Sr Data Platform Engineer | France, Remote; Spain, Remote; United Kingdom, Remote | posted: 2026-11-24 | yrs: 5+ above band
+- [ ] https://jobs.ashbyhq.com/qonto/5acea438-a2f1-44cf-80ad-9cf0ce8caef9 | Qonto | Senior Marketing Data Analyst | Paris, France · Paris · Berlin, Germany · Berlin · Germany · Milan, Italy · Milan · Italy · Madrid, Spain · Madrid · Spain · Barcelona, Spain · Barcelona · Remote | posted: 2026-11-24 | yrs: none stated
+
 ## Processed

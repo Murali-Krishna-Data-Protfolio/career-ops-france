@@ -1,10 +1,10 @@
 # Job matches — Murali Krishna
 
-France · English-only · data roles · updated 2026-11-23 18:53 UTC
+France · English-only · data roles · updated 2026-11-24 18:29 UTC
 
 Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 for priority sources).
 
-## ✅ Open matches (27)
+## ✅ Open matches (29)
 
 | Score | Company | Role | Location | Date | CV skills found |
 |---:|---|---|---|---|---|
@@ -17,6 +17,7 @@ Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 fo
 | **85** | Resilience Care | [Software & Analytics Engineer](https://www.welcometothejungle.com/en/companies/resilience/jobs/analytics-software-engineer_paris) | Paris, France, Remote | 2026-11-01 | SQL, dbt, Python, Data modeling, Semantic models, CI/CD |
 | **83** | Luxurynsight | [Data Engineer Luxurynsight](https://www.welcometothejungle.com/en/companies/luxurynsight/jobs/data-engineer-luxurynsight_paris) | Paris, France | 2026-10-12 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **80** | PIGMENT | [Data Engineer (Growth Team)](https://www.welcometothejungle.com/en/companies/pigment/jobs/growth-engineer_paris_PIGME_7qJl5ad) | Paris, France | 2026-11-09 | SQL, dbt, Python, Snowflake, Lineage/governance, Lakehouse/warehouse |
+| **80** | Dataiku | [Sr Data Platform Engineer](https://job-boards.greenhouse.io/dataiku/jobs/6270038004) | France, Remote; Spain, Remote; United Kingdom, Remote | 2026-11-24 | SQL, Azure, Python, Snowflake, Data modeling, CI/CD |
 | **78** | Back Market | [Experienced Analytics Engineer - Customer Experience](https://jobs.ashbyhq.com/backmarket/decc0c58-1c72-4eed-9f4c-81b388bd805e) | Bordeaux · France · Paris | 2026-11-17 | SQL, dbt, Python, Data modeling, Airflow, Data quality |
 | **75** | Joko | [Data Engineer](https://www.welcometothejungle.com/en/companies/joko/jobs/data-engineer_paris_JOKO_K6yZbxR) | Paris, France | 2026-11-10 | SQL, dbt, Python, Snowflake, Data modeling, Airflow |
 | **73** | Mirakl | [Data Engineer](https://www.welcometothejungle.com/en/companies/mirakl/jobs/data-engineer_paris) | Paris, France | 2026-11-14 | SQL, Databricks, Python, Spark, Airflow, CI/CD |
@@ -31,6 +32,7 @@ Priority sources (scanned first): Allianz France. Alert threshold: 55/100 (40 fo
 | **63** | Swan | [Senior Data Analyst](https://www.welcometothejungle.com/en/companies/swan/jobs/senior-data-analyst_paris_SWAN_8J76qed) | Paris, France | 2026-10-16 | SQL, dbt, Data quality, KPI dashboards, FP&A / finance |
 | **63** | Orakl Oncology | [Senior Data Engineer](https://www.welcometothejungle.com/en/companies/orakl-oncology/jobs/senior-data-engineer_villejuif_OO_J5ZeK4R) | Villejuif, France | 2026-10-29 | SQL, Python, Data modeling, Airflow, CI/CD, Lineage/governance |
 | **63** | Vestiaire Collective | [Data Analyst (Maternity Cover / Temporary contract)](https://jobs.lever.co/vestiairecollective/eef0d028-8f21-4d44-993b-b3fd335f789b) | Paris | 2026-11-17 | Power BI, SQL, Python, KPI dashboards |
+| **60** | Qonto | [Senior Marketing Data Analyst](https://jobs.ashbyhq.com/qonto/5acea438-a2f1-44cf-80ad-9cf0ce8caef9) | Paris, France · Paris · Berlin, Germany · Berlin · Germany · Milan, Italy · Milan · Italy · Madrid, Spain · Madrid · Spain · Barcelona, Spain · Barcelona · Remote | 2026-11-24 | SQL, Snowflake, KPI dashboards, FP&A / finance |
 | **58** | Qonto | [People Data Analyst](https://jobs.ashbyhq.com/qonto/b92ce185-667d-4568-8010-af0db7fc2ad0) | Paris, France · Paris | 2026-10-19 | SQL, KPI dashboards, FP&A / finance, Excel |
 | **58** | Betclic Group | [Senior Data Analyst - Sport F/M (Hybrid)](https://www.welcometothejungle.com/en/companies/betclic/jobs/senior-data-analyst-sport-f-m-hybrid_bordeaux) | Bordeaux, France | 2026-10-10 | SQL, Python, Snowflake, Airflow |
 | **58** | Betclic Group | [Senior Data Analyst F/M (Hybrid)](https://www.welcometothejungle.com/en/companies/betclic/jobs/senior-data-analyst-f-m-hybrid_bordeaux_BG_N4JGkg1) | Bordeaux, France | 2026-11-09 | SQL, Python, Snowflake, Airflow |
