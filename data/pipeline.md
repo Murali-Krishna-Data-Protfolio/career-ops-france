@@ -54,4 +54,7 @@ Paste job URLs below as `- [ ] {url}` then run `/career-ops pipeline`.
 - [ ] https://job-boards.greenhouse.io/dataiku/jobs/6270038004 | Dataiku | Sr Data Platform Engineer | France, Remote; Spain, Remote; United Kingdom, Remote | posted: 2026-11-24 | yrs: 5+ above band
 - [ ] https://jobs.ashbyhq.com/qonto/5acea438-a2f1-44cf-80ad-9cf0ce8caef9 | Qonto | Senior Marketing Data Analyst | Paris, France · Paris · Berlin, Germany · Berlin · Germany · Milan, Italy · Milan · Italy · Madrid, Spain · Madrid · Spain · Barcelona, Spain · Barcelona · Remote | posted: 2026-11-24 | yrs: none stated
 
+- [ ] https://www.welcometothejungle.com/en/companies/blockchain-com/jobs/data-scientist_paris_ag3xxpjr | Blockchain.com | Data Analyst | Paris, France | posted: 2026-11-19 | yrs: none stated
+- [ ] https://www.welcometothejungle.com/en/companies/joko/jobs/data-analyst | Joko | Data Analyst | Paris, France, Remote | 48000-84000 EUR | posted: 2026-11-26 | yrs: none stated
+
 ## Processed
